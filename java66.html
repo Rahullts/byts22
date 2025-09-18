@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Cake Order Calculator</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f9f3f3;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .order-box {
+      background: white;
+      padding: 25px 35px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+      width: 400px;
+      text-align: center;
+    }
+    h2 {
+      margin-bottom: 20px;
+      color: #444;
+    }
+    input, select {
+      margin: 10px 0;
+      padding: 10px;
+      width: 90%;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 16px;
+    }
+    button {
+      margin-top: 15px;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 6px;
+      background: #ff4d6d;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #cc3c57;
+    }
+    .result {
+      margin-top: 15px;
+      font-size: 16px;
+      font-weight: bold;
+      color: #333;
+      text-align: left;
+    }
+  </style>
+</head>
+<body>
+  <div class="order-box">
+    <h2>🍰 Cake Order Calculator</h2>
+
+    <input type="number" id="quantity" placeholder="Enter quantity">
+
+    <select id="cakeType">
+      <option value="0">-- Select Cake Type --</option>
+      <option value="250">Chocolate Cake - ₹250</option>
+      <option value="200">Vanilla Cake - ₹200</option>
+      <option value="300">Black Forest - ₹300</option>
+      <option value="350">Red Velvet - ₹350</option>
+    </select>
+
+    <button id="calcBtn">Calculate Bill</button>
+
+    <div class="result">
+      <p id="orderQty">Quantity: -</p>
+      <p id="cakeSelected">Cake Type: -</p>
+      <p id="totalAmt">Total Amount: -</p>
+    </div>
+  </div>
+
+  <script>
+    $(document).ready(function(){
+
+      // Button click to calculate
+      $("#calcBtn").click(function(){
+        let qty = parseInt($("#quantity").val());
+        let price = parseInt($("#cakeType").val());
+        let cakeName = $("#cakeType option:selected").text();
+
+        if(isNaN(qty) || qty <= 0){
+          alert("⚠️ Please enter valid quantity.");
+          return;
+        }
+        if(price === 0){
+          alert("⚠️ Please select a cake type.");
+          return;
+        }
+
+        let total = qty * price;
+
+        $("#orderQty").html("Quantity: " + qty);
+        $("#cakeSelected").html("Cake Type: " + cakeName);
+        $("#totalAmt").html("Total Amount: ₹ " + total);
+      });
+
+      // jQuery effects
+      $("#quantity").focus(function(){
+        $(this).css("background-color", "#fff0f5");
+      }).blur(function(){
+        $(this).css("background-color", "white");
+      });
+
+      $("#cakeType").change(function(){
+        let selected = $("#cakeType option:selected").text();
+        $("#cakeSelected").html("Selected Cake: " + selected);
+      });
+    });
+  </script>
+</body>
+</html>
